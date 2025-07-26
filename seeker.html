@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Seeker - Browse Tasks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #1a73e8;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .task-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .task-details {
+      flex: 2;
+    }
+    .task-image {
+      flex: 1;
+    }
+    .task-image img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+    .task-card button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .task-card button:hover {
+      background-color: #155ec4;
+    }
+    .contact-info {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background-color: #f0f8ff;
+      border-radius: 5px;
+      display: none;
+    }
+    .back-link {
+      display: block;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Available Tasks</h1>
+    <p>Find tasks that match your skills</p>
+  </header>
+  <div class="container" id="taskList">
+    <!-- Tasks will appear here -->
+  </div>
+  <a class="back-link" href="index.html">&larr; Back to Role Selection</a>
+
+  <script>
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    const taskList = document.getElementById("taskList");
+
+    if (tasks.length === 0) {
+      taskList.innerHTML = "<p>No tasks available yet. Please check back later.</p>";
+    } else {
+      tasks.forEach((task, index) => {
+        const div = document.createElement("div");
+        div.classList.add("task-card");
+
+        div.innerHTML = `
+          <div class="task-details">
+            <h3>${task.title}</h3>
+            <p><strong>Description:</strong> ${task.description}</p>
+            <p><strong>Location:</strong> ${task.location}</p>
+            <p><strong>Category:</strong> ${task.category}</p>
+            <p><strong>Budget:</strong> LKR ${task.budget}</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location)}" target="_blank">View on Map</a><br>
+            <button onclick="toggleContact(${index})">Accept Task</button>
+            <div id="contact-${index}" class="contact-info">
+              <p><strong>Task Giver Contact:</strong></p>
+              <p>Name: ${task.giverName || 'Not provided'}</p>
+              <p>Email: ${task.giverEmail || 'example@email.com'}</p>
+              <p>Phone: ${task.giverPhone || '0712345678'}</p>
+            </div>
+          </div>
+          <div class="task-image">
+            ${task.image ? `<img src="${task.image}" alt="Task Image">` : "<p>No image</p>"}
+          </div>
+        `;
+
+        taskList.appendChild(div);
+      });
+    }
+
+    function toggleContact(index) {
+      const contactDiv = document.getElementById(`contact-${index}`);
+      contactDiv.style.display = contactDiv.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
