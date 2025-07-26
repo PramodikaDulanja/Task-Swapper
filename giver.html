@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Giver - Post a Task</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #1a73e8;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.3rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 0.8rem 1.5rem;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #155ec4;
+    }
+    .task-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+    }
+    .back-link {
+      display: block;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    img.preview {
+      max-width: 100px;
+      margin-top: 0.5rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Post a Task</h1>
+    <p>Describe what help you need</p>
+  </header>
+  <div class="container">
+    <form id="taskForm">
+      <label for="title">Task Title:</label>
+      <input type="text" id="title" required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" required></textarea>
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" required>
+
+      <label for="category">Category:</label>
+      <select id="category" required>
+        <option value="">--Select Category--</option>
+        <option>Repair</option>
+        <option>Tutoring</option>
+        <option>Teaching</option>
+        <option>Painting</option>
+        <option>Delivery</option>
+        <option>Gardening</option>
+        <option>Cleaning</option>
+        <option>Shopping Help</option>
+        <option>Cooking</option>
+        <option>Moving Assistance</option>
+        <option>Other</option>
+      </select>
+
+      <label for="budget">Budget (LKR):</label>
+      <input type="number" id="budget" required>
+
+      <label for="image">Attach an Image (optional):</label>
+      <input type="file" id="image" accept="image/*">
+      <img id="preview" class="preview" style="display:none;">
+
+      <button type="submit">Post Task</button>
+    </form>
+
+    <div id="postedTasks"></div>
+
+    <a class="back-link" href="index.html">← Back to Role Selection</a>
+  </div>
+
+  <script>
+    const form = document.getElementById("taskForm");
+    const postedTasks = document.getElementById("postedTasks");
+    const imageInput = document.getElementById("image");
+    const preview = document.getElementById("preview");
+    let imageUrl = "";
+
+    imageInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+          imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const location = document.getElementById("location").value;
+      const category = document.getElementById("category").value;
+      const budget = document.getElementById("budget").value;
+
+      const taskDiv = document.createElement("div");
+      taskDiv.classList.add("task-card");
+      taskDiv.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Description:</strong> ${description}</p>
+        <p><strong>Location:</strong> ${location}</p>
+        <p><strong>Category:</strong> ${category}</p>
+        <p><strong>Budget:</strong> LKR ${budget}</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}" target="_blank">View on Map</a><br>
+        ${imageUrl ? `<img src="${imageUrl}" class="preview">` : ""}
+      `;
+      postedTasks.appendChild(taskDiv);
+      form.reset();
+      preview.style.display = "none";
+      imageUrl = "";
+    });
+  </script>
+</body>
+</html>
