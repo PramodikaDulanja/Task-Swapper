@@ -3,159 +3,920 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Giver - Post a Task</title>
+  <title>Task Giver Dashboard - TaskSwap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f4f4;
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #dbeafe;
+      --secondary: #f59e0b;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --gray-light: #e5e7eb;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s ease;
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Header */
     header {
-      background-color: #1a73e8;
-      color: white;
-      padding: 1rem;
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Main Layout */
+    .dashboard {
+      display: flex;
+      min-height: calc(100vh - 72px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: white;
+      padding: 1.5rem 0;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      margin-top: 2rem;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.5rem;
+      text-decoration: none;
+      color: var(--dark);
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-left-color: var(--primary);
+    }
+
+    .sidebar-menu i {
+      width: 20px;
       text-align: center;
     }
-    .container {
-      max-width: 700px;
-      margin: 2rem auto;
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
       padding: 2rem;
-      background-color: white;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
     }
-    label {
-      display: block;
-      margin: 1rem 0 0.3rem;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      padding: 0.8rem 1.5rem;
-      background-color: #1a73e8;
+
+    .btn-primary {
+      background: var(--primary);
       color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn i {
+      font-size: 0.9rem;
+    }
+
+    /* Dashboard Cards */
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .stat-icon.blue {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .stat-icon.green {
+      background: #d1fae5;
+      color: var(--success);
+    }
+
+    .stat-icon.orange {
+      background: #fef3c7;
+      color: var(--warning);
+    }
+
+    .stat-icon.purple {
+      background: #ede9fe;
+      color: #8b5cf6;
+    }
+
+    .stat-info h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-info p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Task Form */
+    .task-form-container {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+    }
+
+    .form-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .form-header h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background: var(--light);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--gray-light);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    /* Image Upload */
+    .image-upload {
+      border: 2px dashed var(--gray-light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 1rem;
+    }
+
+    .image-upload:hover {
+      border-color: var(--primary);
+    }
+
+    .upload-icon {
+      font-size: 2rem;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .image-upload p {
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .image-upload small {
+      color: var(--gray);
+    }
+
+    .image-preview {
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Posted Tasks */
+    .tasks-section {
+      margin-top: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .task-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .task-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .task-image {
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .task-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .task-content {
+      padding: 1.5rem;
+    }
+
+    .task-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .task-description {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .task-category {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .task-budget {
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .task-location {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .task-btn {
+      flex: 1;
+      padding: 0.5rem;
       border: none;
       border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
+      transition: var(--transition);
     }
-    button:hover {
-      background-color: #155ec4;
+
+    .task-btn.primary {
+      background: var(--primary);
+      color: white;
     }
-    .task-card {
-      border: 1px solid #ccc;
-      padding: 1rem;
-      margin-top: 1rem;
-      border-radius: 6px;
+
+    .task-btn.primary:hover {
+      background: var(--primary-dark);
     }
-    .back-link {
-      display: block;
-      margin-top: 1rem;
+
+    .task-btn.secondary {
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .task-btn.secondary:hover {
+      background: var(--gray-light);
+    }
+
+    .empty-state {
       text-align: center;
+      padding: 3rem;
+      color: var(--gray);
     }
-    img.preview {
-      max-width: 100px;
-      margin-top: 0.5rem;
-      display: block;
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 220px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        order: 2;
+      }
+      
+      .main-content {
+        order: 1;
+      }
+      
+      .stats-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 1rem;
+      }
+      
+      .main-content {
+        padding: 1.5rem;
+      }
+      
+      .task-form-container {
+        padding: 1.5rem;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <h1>Post a Task</h1>
-    <p>Describe what help you need</p>
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><i class="fas fa-exchange-alt"></i></span>
+      <span class="logo-text">TaskSwap</span>
+    </a>
+    
+    <div class="user-menu">
+      <div class="user-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
   </header>
-  <div class="container">
-    <form id="taskForm">
-      <label for="title">Task Title:</label>
-      <input type="text" id="title" required>
 
-      <label for="description">Description:</label>
-      <textarea id="description" required></textarea>
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-menu">
+        <li><a href="#" class="active"><i class="fas fa-plus-circle"></i> Post a Task</a></li>
+        <li><a href="#"><i class="fas fa-tasks"></i> My Tasks</a></li>
+        <li><a href="#"><i class="fas fa-user-check"></i> Assigned Tasks</a></li>
+        <li><a href="#"><i class="fas fa-comment-dots"></i> Messages</a></li>
+        <li><a href="#"><i class="fas fa-wallet"></i> Payments</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </div>
+    </aside>
 
-      <label for="location">Location:</label>
-      <input type="text" id="location" required>
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title">Task Giver Dashboard</h1>
+        <button class="btn btn-primary" id="toggleFormBtn">
+          <i class="fas fa-plus"></i> New Task
+        </button>
+      </div>
 
-      <label for="category">Category:</label>
-      <select id="category" required>
-        <option value="">--Select Category--</option>
-        <option>Repair</option>
-        <option>Tutoring</option>
-        <option>Teaching</option>
-        <option>Painting</option>
-        <option>Delivery</option>
-        <option>Gardening</option>
-        <option>Cleaning</option>
-        <option>Shopping Help</option>
-        <option>Cooking</option>
-        <option>Moving Assistance</option>
-        <option>Other</option>
-      </select>
+      <!-- Stats Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div class="stat-info">
+            <h3>5</h3>
+            <p>Active Tasks</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="stat-info">
+            <h3>3</h3>
+            <p>Assigned Tasks</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-info">
+            <h3>4.8</h3>
+            <p>Average Rating</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div class="stat-info">
+            <h3>LKR 12,500</h3>
+            <p>Total Spent</p>
+          </div>
+        </div>
+      </div>
 
-      <label for="budget">Budget (LKR):</label>
-      <input type="number" id="budget" required>
+      <!-- Task Form -->
+      <div class="task-form-container" id="taskFormContainer">
+        <div class="form-header">
+          <h2>Create New Task</h2>
+        </div>
+        
+        <form id="taskForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="title">Task Title</label>
+              <input type="text" id="title" class="form-control" placeholder="e.g., Need help with moving furniture" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" class="form-control" required>
+                <option value="">Select Category</option>
+                <option>Home Repair</option>
+                <option>Tutoring</option>
+                <option>Painting</option>
+                <option>Delivery</option>
+                <option>Gardening</option>
+                <option>Cleaning</option>
+                <option>Shopping Help</option>
+                <option>Cooking</option>
+                <option>Moving Assistance</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Task Description</label>
+            <textarea id="description" class="form-control" placeholder="Describe the task in detail..." required></textarea>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" class="form-control" placeholder="Enter your location" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="budget">Budget (LKR)</label>
+              <input type="number" id="budget" class="form-control" placeholder="Enter your budget" min="0" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Task Image (Optional)</label>
+            <div class="image-upload" id="imageUpload">
+              <i class="fas fa-cloud-upload-alt upload-icon"></i>
+              <p>Drag & drop or click to upload</p>
+              <small>Supports JPG, PNG - Max 5MB</small>
+            </div>
+            <input type="file" id="image" accept="image/*" style="display: none;">
+            <div class="image-preview" id="imagePreview">
+              <img src="" alt="Task image preview">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary">Post Task</button>
+          </div>
+        </form>
+      </div>
 
-      <label for="image">Attach an Image (optional):</label>
-      <input type="file" id="image" accept="image/*">
-      <img id="preview" class="preview" style="display:none;">
-
-      <button type="submit">Post Task</button>
-    </form>
-
-    <div id="postedTasks"></div>
-
-    <a class="back-link" href="index.html">← Back to Role Selection</a>
+      <!-- Posted Tasks -->
+      <div class="tasks-section">
+        <div class="section-header">
+          <h2 class="section-title">Your Posted Tasks</h2>
+        </div>
+        
+        <div class="tasks-grid" id="tasksGrid">
+          <!-- Tasks will be added here dynamically -->
+          <div class="empty-state" id="emptyState">
+            <i class="fas fa-tasks"></i>
+            <p>You haven't posted any tasks yet</p>
+            <button class="btn btn-primary" id="createFirstTaskBtn">
+              <i class="fas fa-plus"></i> Create Your First Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
   <script>
-    const form = document.getElementById("taskForm");
-    const postedTasks = document.getElementById("postedTasks");
-    const imageInput = document.getElementById("image");
-    const preview = document.getElementById("preview");
-    let imageUrl = "";
-
-    imageInput.addEventListener("change", function () {
+    // DOM Elements
+    const taskForm = document.getElementById('taskForm');
+    const taskFormContainer = document.getElementById('taskFormContainer');
+    const toggleFormBtn = document.getElementById('toggleFormBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const imageUpload = document.getElementById('imageUpload');
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('imagePreview');
+    const tasksGrid = document.getElementById('tasksGrid');
+    const emptyState = document.getElementById('emptyState');
+    const createFirstTaskBtn = document.getElementById('createFirstTaskBtn');
+    
+    // Sample categories with icons
+    const categoryIcons = {
+      'Home Repair': 'fas fa-tools',
+      'Tutoring': 'fas fa-graduation-cap',
+      'Painting': 'fas fa-paint-roller',
+      'Delivery': 'fas fa-truck',
+      'Gardening': 'fas fa-leaf',
+      'Cleaning': 'fas fa-broom',
+      'Shopping Help': 'fas fa-shopping-cart',
+      'Cooking': 'fas fa-utensils',
+      'Moving Assistance': 'fas fa-box',
+      'Other': 'fas fa-question-circle'
+    };
+    
+    // Toggle task form visibility
+    toggleFormBtn.addEventListener('click', () => {
+      taskFormContainer.style.display = taskFormContainer.style.display === 'none' ? 'block' : 'block';
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+      taskForm.reset();
+      imagePreview.style.display = 'none';
+    });
+    
+    // Image upload handling
+    imageUpload.addEventListener('click', () => {
+      imageInput.click();
+    });
+    
+    imageInput.addEventListener('change', function() {
       const file = this.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-          preview.src = e.target.result;
-          preview.style.display = "block";
-          imageUrl = e.target.result;
+        reader.onload = function(e) {
+          imagePreview.querySelector('img').src = e.target.result;
+          imagePreview.style.display = 'block';
         };
         reader.readAsDataURL(file);
       }
     });
-
-    form.addEventListener("submit", function (e) {
+    
+    // Drag and drop for image upload
+    imageUpload.addEventListener('dragover', (e) => {
       e.preventDefault();
-
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
-      const location = document.getElementById("location").value;
-      const category = document.getElementById("category").value;
-      const budget = document.getElementById("budget").value;
-
-      const taskDiv = document.createElement("div");
-      taskDiv.classList.add("task-card");
-      taskDiv.innerHTML = `
-        <h3>${title}</h3>
-        <p><strong>Description:</strong> ${description}</p>
-        <p><strong>Location:</strong> ${location}</p>
-        <p><strong>Category:</strong> ${category}</p>
-        <p><strong>Budget:</strong> LKR ${budget}</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}" target="_blank">View on Map</a><br>
-        ${imageUrl ? `<img src="${imageUrl}" class="preview">` : ""}
-      `;
-      postedTasks.appendChild(taskDiv);
-      form.reset();
-      preview.style.display = "none";
-      imageUrl = "";
+      imageUpload.style.borderColor = 'var(--primary)';
+      imageUpload.style.backgroundColor = 'var(--primary-light)';
     });
+    
+    imageUpload.addEventListener('dragleave', () => {
+      imageUpload.style.borderColor = 'var(--gray-light)';
+      imageUpload.style.backgroundColor = 'transparent';
+    });
+    
+    imageUpload.addEventListener('drop', (e) => {
+      e.preventDefault();
+      imageUpload.style.borderColor = 'var(--gray-light)';
+      imageUpload.style.backgroundColor = 'transparent';
+      
+      if (e.dataTransfer.files.length) {
+        imageInput.files = e.dataTransfer.files;
+        const event = new Event('change');
+        imageInput.dispatchEvent(event);
+      }
+    });
+    
+    // Form submission
+    taskForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const location = document.getElementById('location').value;
+      const category = document.getElementById('category').value;
+      const budget = document.getElementById('budget').value;
+      const imageSrc = imagePreview.style.display === 'block' ? 
+        imagePreview.querySelector('img').src : '';
+      
+      // Create task card
+      createTaskCard({
+        title,
+        description,
+        location,
+        category,
+        budget,
+        imageSrc,
+        status: 'active',
+        date: new Date().toLocaleDateString()
+      });
+      
+      // Hide empty state if it's the first task
+      if (emptyState.style.display !== 'none') {
+        emptyState.style.display = 'none';
+      }
+      
+      // Reset form
+      taskForm.reset();
+      imagePreview.style.display = 'none';
+      
+      // Show success message (you could use a toast notification library)
+      alert('Task posted successfully!');
+    });
+    
+    // Create task card element
+    function createTaskCard(task) {
+      const taskCard = document.createElement('div');
+      taskCard.classList.add('task-card');
+      
+      taskCard.innerHTML = `
+        <div class="task-image">
+          ${task.imageSrc ? 
+            `<img src="${task.imageSrc}" alt="${task.title}">` : 
+            `<div style="height:100%; background:var(--gray-light); display:flex; align-items:center; justify-content:center;">
+              <i class="${categoryIcons[task.category] || 'fas fa-tasks'}" style="font-size:2rem; color:var(--gray);"></i>
+            </div>`
+          }
+        </div>
+        <div class="task-content">
+          <h3 class="task-title">${task.title}</h3>
+          <p class="task-description">${task.description}</p>
+          
+          <div class="task-meta">
+            <span class="task-category">${task.category}</span>
+            <span class="task-budget">LKR ${task.budget}</span>
+          </div>
+          
+          <div class="task-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>${task.location}</span>
+          </div>
+          
+          <div class="task-actions">
+            <button class="task-btn primary">View Applications</button>
+            <button class="task-btn secondary">Edit</button>
+          </div>
+        </div>
+      `;
+      
+      tasksGrid.appendChild(taskCard);
+    }
+    
+    // Create first task button
+    createFirstTaskBtn.addEventListener('click', () => {
+      taskFormContainer.style.display = 'block';
+      // Scroll to form
+      taskFormContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // Sample tasks for demonstration
+    const sampleTasks = [
+      {
+        title: 'Furniture Assembly',
+        description: 'Need help assembling IKEA furniture including a bed frame and wardrobe. Tools will be provided.',
+        location: 'Colombo 05',
+        category: 'Home Repair',
+        budget: '3500',
+        imageSrc: '',
+        status: 'active',
+        date: '2023-10-15'
+      },
+      {
+        title: 'Math Tutoring for Grade 10',
+        description: 'Looking for an experienced tutor to help with advanced mathematics syllabus twice a week.',
+        location: 'Kandy',
+        category: 'Tutoring',
+        budget: '6000',
+        imageSrc: '',
+        status: 'active',
+        date: '2023-10-18'
+      }
+    ];
+    
+    // Uncomment the line below to add sample tasks on page load
+    // sampleTasks.forEach(task => createTaskCard(task));
   </script>
 </body>
 </html>
