@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Task Swapper</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+    nav {
+      background-color: #1a73e8;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav h1 {
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+        height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: url(images/White-Collar-Jobs-2048x1440.jpg) no-repeat center center/cover;
+      color: white;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .buttons a {
+      padding: 0.75rem 1.5rem;
+      background-color: #fff;
+      color: #1a73e8;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .buttons a:hover {
+      background-color: #e6e6e6;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ddd;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Task Swapper</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">How it Works</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h2>Connect. Swap. Solve.</h2>
+    <p>Whether you need help or want to offer your skills, Task Swapper connects people to get things done in the real world.</p>
+    <div class="buttons">
+      <a href="giver.html">I'm a Task Giver</a>
+      <a href="seeker.html">I'm a Task Seeker</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Task Swapper. All rights reserved.
+  </footer>
+</body>
+</html>

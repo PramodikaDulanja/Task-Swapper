@@ -1,0 +1,13 @@
+[package]
+org = "asus"
+name = "task_swap"
+version = "0.1.0"
+
+
+[build-options]
+observabilityIncluded = true
+
+[[dependency]]
+org = "ballerinax"
+name = "mysql.driver"
+version = "1.8.0"
