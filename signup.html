@@ -3,102 +3,748 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create your TaskSwap account to start posting tasks or offering services.">
   <title>Sign Up - TaskSwap</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f59e0b;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --gray-light: #e5e7eb;
+      --success: #10b981;
+      --error: #ef4444;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #00c6ff, #1a73e8);
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Illustration Section */
+    .illustration-section {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+    
+    .illustration-content {
+      max-width: 500px;
+      z-index: 2;
+      text-align: center;
+    }
+    
+    .illustration-content h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .illustration-content p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    
+    .illustration {
+      font-size: 8rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .benefits {
+      text-align: left;
+      margin-top: 2rem;
+    }
+    
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .benefit-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .benefit-text h4 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .benefit-text p {
+      font-size: 0.9rem;
+      margin: 0;
+      opacity: 0.8;
+    }
+    
+    /* Sign Up Section */
+    .signup-section {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .signup-container {
+      padding: 2rem;
       background: white;
-      padding: 2.5rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+    
+    .signup-container {
       width: 100%;
-      max-width: 450px;
+      max-width: 480px;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      background: white;
     }
-    .signup-container h2 {
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .signup-header {
+      margin-bottom: 2rem;
       text-align: center;
-      margin-bottom: 1.5rem;
-      color: #1a73e8;
     }
+    
+    .signup-header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .signup-header p {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+    
+    .progress-bar {
+      display: flex;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--gray-light);
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .step-text {
+      font-size: 0.75rem;
+      color: var(--gray);
+      display: none;
+    }
+    
+    .progress-step.active .step-number {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-light);
+      z-index: 1;
+    }
+    
     .form-group {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
     }
+    
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
-      font-weight: 600;
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 0.9rem;
     }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      z-index: 1;
+    }
+    
     .form-group input,
     .form-group select {
       width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 10px;
       font-size: 1rem;
+      transition: var(--transition);
+      background: var(--light);
     }
-    button {
-      width: 100%;
-      padding: 1rem;
-      background-color: #1a73e8;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
       cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
+      z-index: 2;
     }
-    button:hover {
-      background-color: #155ec4;
+    
+    .password-strength {
+      margin-top: 0.5rem;
     }
-    .link-text {
-      text-align: center;
-      margin-top: 1rem;
+    
+    .strength-meter {
+      height: 5px;
+      background: var(--gray-light);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
     }
-    .link-text a {
-      color: #1a73e8;
+    
+    .strength-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 3px;
+      transition: var(--transition);
+    }
+    
+    .strength-text {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .terms input {
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    
+    .terms label {
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    
+    .terms a {
+      color: var(--primary);
       text-decoration: none;
       font-weight: 500;
+    }
+    
+    .terms a:hover {
+      text-decoration: underline;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gray-light);
+      color: var(--dark);
+    }
+    
+    .btn-outline:hover {
+      background: var(--light);
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--gray-light);
+    }
+    
+    .divider span {
+      padding: 0 1rem;
+    }
+    
+    .social-signup {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 10px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .social-btn:hover {
+      background: var(--light);
+    }
+    
+    .social-icon {
+      font-size: 1.2rem;
+    }
+    
+    .google-btn {
+      color: #DB4437;
+    }
+    
+    .facebook-btn {
+      color: #4267B2;
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .login-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive Design */
+    @media (min-width: 992px) {
+      body {
+        flex-direction: row;
+      }
+      
+      .illustration-section {
+        display: flex;
+      }
+    }
+    
+    @media (max-width: 991px) {
+      body {
+        flex-direction: column;
+      }
+      
+      .illustration-section {
+        display: none;
+      }
+      
+      .signup-section {
+        padding: 1.5rem;
+      }
+      
+      .signup-container {
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .signup-container {
+        padding: 1.5rem;
+      }
+      
+      .social-signup {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      
+      .step-text {
+        display: none !important;
+      }
+    }
+    
+    @media (min-width: 576px) {
+      .step-text {
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="signup-container">
-    <h2>Create Your TaskSwap Account</h2>
-    <form action="#" method="POST">
-      <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" name="fullname" required />
+  <!-- Illustration Section (visible on larger screens) -->
+  <section class="illustration-section">
+    <div class="illustration-content">
+      <div class="illustration">
+        <i class="fas fa-user-plus"></i>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+      <h2>Join the TaskSwap Community</h2>
+      <p>Sign up today and discover a better way to get tasks done or earn money using your skills.</p>
+      
+      <div class="benefits">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Quick Setup</h4>
+            <p>Create your account in less than 2 minutes</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Secure Platform</h4>
+            <p>Your data is protected with industry-standard security</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="benefit-text">
+            <h4>Large Community</h4>
+            <p>Join thousands of users already on TaskSwap</p>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-      </div>
-      <div class="form-group">
-        <label for="role">I am signing up as a:</label>
-        <select id="role" name="role" required>
-          <option value="">Select Role</option>
-          <option value="taskgiver">Task Giver</option>
-          <option value="taskseeker">Task Seeker</option>
-        </select>
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
-    <div class="link-text">
-      Already have an account? <a href="login.html">Login</a>
     </div>
-  </div>
+  </section>
+
+  <!-- Sign Up Section -->
+  <section class="signup-section">
+    <div class="signup-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-exchange-alt"></i></span>
+        <span class="logo-text">TaskSwap</span>
+      </a>
+      
+      <div class="signup-header">
+        <h1>Create Your Account</h1>
+        <p>Join TaskSwap today and start swapping tasks</p>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-step active">
+          <div class="step-number">1</div>
+          <div class="step-text">Account</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-number">2</div>
+          <div class="step-text">Profile</div>
+        </div>
+        <div class="progress-step">
+          <div class="step-number">3</div>
+          <div class="step-text">Skills</div>
+        </div>
+      </div>
+      
+      <form action="#" method="POST" id="signup-form">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <div class="input-with-icon">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-with-icon">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-with-icon">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" name="password" placeholder="Create a password" required />
+            <i class="fas fa-eye password-toggle" id="password-toggle"></i>
+          </div>
+          <div class="password-strength">
+            <div class="strength-meter">
+              <div class="strength-fill" id="strength-fill"></div>
+            </div>
+            <div class="strength-text" id="strength-text">Password strength</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="role">I want to:</label>
+          <select id="role" name="role" required>
+            <option value="">Select your role</option>
+            <option value="taskgiver">Post tasks and get help</option>
+            <option value="taskseeker">Find tasks and earn money</option>
+            <option value="both">Both - I may need help and want to help others</option>
+          </select>
+        </div>
+        
+        <div class="terms">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm that I am at least 18 years old.</label>
+        </div>
+        
+        <div class="terms">
+          <input type="checkbox" id="newsletter" name="newsletter">
+          <label for="newsletter">Send me occasional updates about new features and tips (optional)</label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+      
+      <div class="divider">
+        <span>Or sign up with</span>
+      </div>
+      
+      <div class="social-signup">
+        <button type="button" class="social-btn google-btn">
+          <i class="fab fa-google social-icon"></i>
+          <span>Google</span>
+        </button>
+        <button type="button" class="social-btn facebook-btn">
+          <i class="fab fa-facebook-f social-icon"></i>
+          <span>Facebook</span>
+        </button>
+      </div>
+      
+      <div class="login-link">
+        Already have an account? <a href="login.html">Log in</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Password visibility toggle
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordInput = document.getElementById('password');
+    
+    passwordToggle.addEventListener('click', function() {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle eye icon
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+    
+    // Password strength meter
+    const strengthFill = document.getElementById('strength-fill');
+    const strengthText = document.getElementById('strength-text');
+    
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+      let message = '';
+      let color = '';
+      
+      if (password.length > 0) {
+        // Check password strength
+        if (password.length < 6) {
+          strength = 25;
+          message = 'Too short';
+          color = var(--error);
+        } else {
+          // Check for lowercase, uppercase, numbers, and special characters
+          const hasLower = /[a-z]/.test(password);
+          const hasUpper = /[A-Z]/.test(password);
+          const hasNumber = /[0-9]/.test(password);
+          const hasSpecial = /[^A-Za-z0-9]/.test(password);
+          
+          const requirementsMet = [hasLower, hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
+          
+          if (requirementsMet === 1) {
+            strength = 25;
+            message = 'Weak';
+            color = '#ef4444';
+          } else if (requirementsMet === 2) {
+            strength = 50;
+            message = 'Fair';
+            color = '#f59e0b';
+          } else if (requirementsMet === 3) {
+            strength = 75;
+            message = 'Good';
+            color = '#10b981';
+          } else if (requirementsMet === 4) {
+            strength = 100;
+            message = 'Strong';
+            color = '#059669';
+          }
+        }
+      }
+      
+      strengthFill.style.width = `${strength}%`;
+      strengthFill.style.background = color;
+      strengthText.textContent = message || 'Password strength';
+      strengthText.style.color = color;
+    });
+    
+    // Form validation
+    const signupForm = document.getElementById('signup-form');
+    
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Basic validation
+      const fullname = document.getElementById('fullname').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+      const terms = document.getElementById('terms').checked;
+      
+      if (!fullname || !email || !password || !role || !terms) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      
+      // Password validation
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+      }
+      
+      // If validation passes, you would typically submit the form to your server
+      console.log('Form submitted successfully');
+      // signupForm.submit(); // Uncomment to actually submit the form
+      
+      // For demo purposes, show a success message
+      alert('Account created successfully! Redirecting...');
+    });
+  </script>
 </body>
 </html>

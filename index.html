@@ -3,135 +3,812 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskSwap - Welcome</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="description" content="TaskSwap - Connect with skilled professionals to get tasks done or offer your services. The modern platform for task exchange.">
+  <title>TaskSwap - Connect Tasks with Talent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f59e0b;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --success: #10b981;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s ease;
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(120deg, #f0f4f8, #e0ecff);
-      color: #333;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    /* Navigation */
     nav {
-      background-color: #1a73e8;
+      background: #ffffff;
       padding: 1rem 2rem;
-      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    nav h1 {
-      font-size: 1.8rem;
-      font-weight: 600;
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    nav .nav-links a {
-      color: white;
-      margin-left: 1.5rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav .nav-links a:hover {
-      color: #ffdd57;
-    }
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(images/White-Collar-Jobs-2048x1440.jpg) no-repeat center center/cover;
-      height: 90vh;
+    
+    .logo {
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      color: white;
-      padding: 0 1rem;
-    }
-    .hero h2 {
-      font-size: 3.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    }
-    .hero p {
-      font-size: 1.4rem;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
-    }
-    .role-buttons {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .role-buttons a {
-      background-color: #1a73e8;
-      color: #1a1a1a;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
+      gap: 0.75rem;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: background-color 0.3s, transform 0.2s;
     }
-    .role-buttons a:hover {
-      background-color: #1a1a1a;
-      color: #e0ecff;
-      transform: scale(1.05);
+    
+    .logo-icon {
+      font-size: 1.8rem;
+      color: var(--primary);
     }
-    .auth-links {
-      margin-top: 2rem;
-      font-size: 1rem;
+    
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
     }
-    .auth-links a {
-      color: #1a1a1a;
-      //color: white;
-      margin-left: 0.5rem;
-      text-decoration: underline;
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
       font-weight: 500;
+      color: var(--dark);
+      transition: var(--transition);
+      position: relative;
     }
-
-    .auth-links a:hover {
+    
+    .nav-links a:not(.btn):after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:not(.btn):hover:after {
+      width: 100%;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-outline {
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
       color: white;
     }
     
-        @media (max-width: 768px) {
-      .hero h2 {
-        font-size: 2.2rem;
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url("https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80") no-repeat center/cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem;
+      color: white;
+      position: relative;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      color: #e6e6e6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Features Section */
+    .section {
+      padding: 5rem 2rem;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      text-align: center;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .feature-card p {
+      color: var(--gray);
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      background: #f3f4f6;
+    }
+    
+    .steps {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .step {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      flex: 1;
+      min-width: 250px;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .step-number {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+    
+    .step-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin: 1.5rem 0;
+    }
+    
+    .step h3 {
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .step p {
+      color: var(--gray);
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      background: white;
+    }
+    
+    .testimonial-cards {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding: 1rem 0.5rem;
+      scrollbar-width: thin;
+    }
+    
+    .testimonial-card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      min-width: 300px;
+      max-width: 350px;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .author-details h4 {
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+    
+    .author-details p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn-light {
+      background: white;
+      color: var(--primary);
+    }
+    
+    .btn-light:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 2rem 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+    
+    .footer-column p {
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+      color: white;
+      opacity: 0.8;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--primary);
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: var(--shadow-md);
       }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
       .hero p {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
-      .role-buttons a {
-        padding: 0.8rem 1.8rem;
-        font-size: 1rem;
+      
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .section {
+        padding: 3rem 1.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero {
+        padding: 6rem 1.5rem;
+      }
+      
+      .btn {
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
   <nav>
-    <h1>TaskSwap</h1>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon"><i class="fas fa-exchange-alt"></i></span>
+        <span class="logo-text">TaskSwap</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">How It Works</a>
+        <a href="#">Categories</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <h2>Connect Tasks with Talent</h2>
-    <p>TaskSwap helps connect people who need help with those who can help. Post or find tasks near you today.</p>
-    <div class="role-buttons">
-      <a href="login.html">Login</a>
-      <a href="signup.html">Sign Up</a>
-    </div>
-    <div class="auth-links">
-      <p>Already registered?<a href="login.html"> Log in here</a></p>
+    <div class="hero-content">
+      <h1>Connect Tasks with Talent</h1>
+      <p>TaskSwap helps you find the right people for your tasks or offer your skills to others. Join our community to get things done.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary">Find Help</a>
+        <a href="#" class="btn btn-light">Offer Help</a>
+      </div>
     </div>
   </section>
+
+  <!-- Features Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose TaskSwap</h2>
+        <p>We provide a seamless experience for both task posters and task doers</p>
+      </div>
+      
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Quick Matching</h3>
+          <p>Our algorithm quickly matches your tasks with qualified professionals in your area.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure Payments</h3>
+          <p>Our escrow system ensures payments are only released when you're satisfied with the work.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <h3>Rating System</h3>
+          <p>Rate your experience and help build a trusted community of taskers and clients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section how-it-works">
+    <div class="container">
+      <div class="section-title">
+        <h2>How It Works</h2>
+        <p>Getting started with TaskSwap is simple and straightforward</p>
+      </div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h3>Create Account</h3>
+          <p>Sign up as a task poster or task doer in just a few minutes.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h3>Post or Browse</h3>
+          <p>Post your task requirements or browse available tasks in your area.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Connect & Complete</h3>
+          <p>Connect with the right person and get your task completed efficiently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Users Say</h2>
+        <p>Hear from people who have used TaskSwap to get things done</p>
+      </div>
+      
+      <div class="testimonial-cards">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"TaskSwap helped me find a reliable handyman within hours. The process was smooth and the work was excellent!"</p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson" class="author-avatar">
+            <div class="author-details">
+              <h4>Sarah Johnson</h4>
+              <p>Homeowner</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"As a freelance graphic designer, TaskSwap has connected me with clients I wouldn't have found otherwise. Great platform!"</p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-avatar">
+            <div class="author-details">
+              <h4>Michael Chen</h4>
+              <p>Freelance Designer</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"I needed help assembling furniture and found someone on TaskSwap who did an amazing job. Will definitely use again!"</p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emma Rodriguez" class="author-avatar">
+            <div class="author-details">
+              <h4>Emma Rodriguez</h4>
+              <p>Busy Professional</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Get Started?</h2>
+      <p>Join thousands of users who are already benefiting from TaskSwap's platform</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-light">Sign Up Now</a>
+        <a href="#" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About TaskSwap</h3>
+          <p>TaskSwap connects people who need tasks completed with skilled individuals who can help. Our mission is to make task completion simple and efficient.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Popular Categories</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home Services</a></li>
+            <li><a href="#">Tech Support</a></li>
+            <li><a href="#">Design & Creative</a></li>
+            <li><a href="#">Delivery Services</a></li>
+            <li><a href="#">Event Help</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact Info</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt"></i> 123 Task Street, City</li>
+            <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@taskswap.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 TaskSwap. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      
+      // Change icon based on menu state
+      const icon = menuBtn.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  </script>
 </body>
 </html>
